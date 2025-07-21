@@ -9,6 +9,11 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: List directory contents
+        run: |
+          ls -la
+          find . -name "Dockerfile" -type f
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
