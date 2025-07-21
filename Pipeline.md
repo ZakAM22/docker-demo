@@ -39,6 +39,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: ./app
           push: true
           tags: zakam22/cat-app:latest
       -
@@ -83,6 +84,7 @@ The job that builds and pushes the image is:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: ./app
           push: true
           tags: zakam22/cat-app:ci
 ```
