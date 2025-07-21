@@ -1,5 +1,9 @@
 from flask import Flask, render_template
 import random
+import os
+from dotenv import load_dotenv 
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -18,7 +22,8 @@ images = [
 @app.route('/')
 def index():
     url = random.choice(images)
-    return render_template('index.html', url=url)
+    app_env = os.getenv('APP_ENV', 'development')  # default to 'development'
+    return render_template('index.html', url=url, app_env=app_env)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
