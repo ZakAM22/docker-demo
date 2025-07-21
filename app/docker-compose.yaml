@@ -1,0 +1,35 @@
+services: 
+ # Setup MySQL8 Database
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    networks:
+      - internal
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./mysql-init/my.cnf:/etc/mysql/conf.d/custom.cnf
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  cat-app:
+    build: .
+    container_name: cat-app
+    ports:
+      - "5000:5000"
+    networks:
+      - internal
+
+
+# Create Persistent volume
+volumes:
+  mysql-data:
+
+networks:
+  internal:
+   driver: bridge
