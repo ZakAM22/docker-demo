@@ -8,7 +8,7 @@ Create folder called `.github`
 Inside `.github` folder create another folder called `workflows` 
 In the `workflows` folder create a new yaml file called `build-image.yaml` 
 
-Copy and paste the following text in `build-iamge.yaml` file 
+Copy and paste the following text in `build-image.yaml` file 
 
 ```yaml
 name: ci
