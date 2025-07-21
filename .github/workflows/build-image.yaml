@@ -11,11 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      -
-        name: List directory contents
-        run: |
-          ls -la
-          ls app
+      - name: Get short SHA
+        id: vars
+        run: echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -35,7 +33,7 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: zakam22/cat-app:latest
+          tags: zakam22/cat-app:${{ steps.vars.outputs.SHORT_SHA }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
